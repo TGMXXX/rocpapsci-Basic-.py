@@ -1,0 +1,89 @@
+import random as rand
+import sys
+from time import sleep
+
+print("Rock Paper Scissors (Classic)\n")
+
+class hand:
+    def __init__(self, pick, enemy, dstyr):
+        self.pick = pick
+        self.enemy = enemy
+        self.dstyr = dstyr
+
+def game(ai_choice, human_choice, rock_p, paper_p, scissors_p):
+    sleep(1.5)
+    print("AI: I pick, " + ai_choice.pick)
+    sleep(1)
+    won = None
+
+    match human_choice:
+        case "rock":
+            if ai_choice.pick == rock_p.dstyr:
+                won = "win"
+            elif ai_choice.pick == rock_p.enemy:
+                won = "lose"
+            else:
+                won = "draw"
+        case "paper":
+            if ai_choice.pick == paper_p.dstyr:
+                won = "win"
+            elif ai_choice.pick == paper_p.enemy:
+                won = "lose"
+            else:
+                won = "draw"
+        case "scissors":
+            if ai_choice.pick == scissors_p.dstyr:
+                won = "win"
+            elif ai_choice.pick == scissors_p.enemy:
+                won = "lose"
+            else:
+                won = "draw"
+
+    match won:
+        case "win":
+            print("You Won")
+        case "lose":
+            ("You Lost")
+        case "draw":
+            print("It was a Draw")
+    return won
+
+def main(rock_p, paper_p, scissors_p):
+
+    hands = [rock_p, paper_p, scissors_p]
+    ai_choice = rand.choice(hands)
+
+    print("What do you pick? \n " + rock_p.pick, paper_p.pick, scissors_p.pick)
+    human_choice = input().lower()
+    print("You: I pick, " + human_choice)
+
+    if human_choice in ["rock", "paper", "scissors"]:
+        won = game(ai_choice, human_choice, rock_p, paper_p, scissors_p)
+        while True:
+            continuexm = input().lower()
+            if continuexm in ['n', "no"]:
+                break
+                sys.exit()
+            elif continuexm in ['y', "yes"]:
+                main(rock_p, paper_p, scissors_p)
+            else:
+                print("Invalid Input")
+                continue
+
+    else:
+        print("You have to pick out of these three, would you like to try again?")
+        while True:
+            continuex = input().lower()
+            if continuex in ['n', "no"]:
+                break
+                sys.exit()
+            elif continuex in ['y', "yes"]:
+                main(rock_p, paper_p, scissors_p)
+            else:
+                continue
+
+rock_p = hand("Rock", "Paper", "Scissors")
+paper_p = hand("Paper", "Scissors", "Rock")
+scissors_p = hand("Scissors", "Rock", "Paper")
+
+main(rock_p, paper_p, scissors_p)
